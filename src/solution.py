@@ -9,28 +9,15 @@ Name:     zID: 5020362
 from __future__ import division
 from __future__ import print_function
 
+import copy
+import datetime
+from collections import OrderedDict as odict
+from itertools import product
+from pathlib import Path
+
 # Allowed libraries
 import numpy as np
 import pandas as pd
-import scipy as sp
-import scipy.special
-import heapq as pq
-import matplotlib as mp
-import matplotlib.pyplot as plt
-import math
-from itertools import product, combinations
-from collections import OrderedDict as odict
-import collections
-from graphviz import Digraph, Graph
-from tabulate import tabulate
-import copy
-import sys
-import os
-import datetime
-import sklearn
-import ast
-import re
-from pathlib import Path
 
 ###################################
 # Code stub
@@ -39,18 +26,9 @@ from pathlib import Path
 # and that function must take sensor_data as an argument, and return an actions_dict
 #
 
-actions_dict = {'lights1': 'off', 'lights2': 'on', 'lights3': 'off', 'lights4': 'off', 'lights5': 'off',
-                'lights6': 'off', 'lights7': 'off', 'lights8': 'off', 'lights9': 'off', 'lights10': 'off',
-                'lights11': 'off', 'lights12': 'off', 'lights13': 'off', 'lights14': 'off', 'lights15': 'off',
-                'lights16': 'off', 'lights17': 'off', 'lights18': 'off', 'lights19': 'off', 'lights20': 'off',
-                'lights21': 'off', 'lights22': 'off', 'lights23': 'off', 'lights24': 'off', 'lights25': 'off',
-                'lights26': 'off', 'lights27': 'off', 'lights28': 'off', 'lights29': 'off', 'lights30': 'off',
-                'lights31': 'off', 'lights32': 'off', 'lights33': 'off', 'lights34': 'off', 'lights35': 'on'}
 
-# this global state variable demonstrates how to keep track of information over multiple
-# calls to get_action
-state = {}
 
+# Assignment 1 Code re-used
 
 def learn_outcome_space(data: pd.DataFrame) -> dict:
     return {var: tuple(data[var].unique()) for var in data.columns.values}
@@ -158,7 +136,6 @@ def prob_to_df(prob_table, single=False) -> dict:
             p_t[node]['table'] = pd.DataFrame.from_dict(p_t[node]['table'], orient='index', columns=[col_name])
     return p_t
 
-
 def markov_blanket(G, node):
     children = G[node]
 
@@ -244,7 +221,16 @@ def load_data(path) -> pd.DataFrame:
     return pd.read_csv(training_data_path, index_col=0)
 
 
-def binarise(df, drop=[]):
+def binarise(df: pd.DataFrame, drop: list=[]) -> pd.DataFrame:
+    '''
+
+    :param df: Input training data
+    :type df: dataframe
+    :param drop: List of columns to exclude from training data
+    :type drop: list
+    :return: binarised dataframe
+    :rtype: Pandas Dataframe
+    '''
     binary_train = df.copy()
     binary_train.drop(columns=drop, inplace=True)
     for col in binary_train.columns:
@@ -254,6 +240,30 @@ def binarise(df, drop=[]):
     return binary_train
 
 
+def binarise_dict(sensor_data, ):
+    '''
+
+    :param sensor_data: incoming sensor data
+    :type sensor_data: dict
+    :return: binarised dict
+    :rtype: dict
+    '''
+    binarised_data = sensor_data
+    for sensor, reading in binarised_data.items():
+        if str(reading).isdigit():
+            binarised_data[sensor] = reading > 0
+
+    return binarised_data
+
+# Setup parameters
+actions_dict = {'lights1': 'off', 'lights2': 'on', 'lights3': 'off', 'lights4': 'off', 'lights5': 'off',
+                'lights6': 'off', 'lights7': 'off', 'lights8': 'off', 'lights9': 'off', 'lights10': 'off',
+                'lights11': 'off', 'lights12': 'off', 'lights13': 'off', 'lights14': 'off', 'lights15': 'off',
+                'lights16': 'off', 'lights17': 'off', 'lights18': 'off', 'lights19': 'off', 'lights20': 'off',
+                'lights21': 'off', 'lights22': 'off', 'lights23': 'off', 'lights24': 'off', 'lights25': 'off',
+                'lights26': 'off', 'lights27': 'off', 'lights28': 'off', 'lights29': 'off', 'lights30': 'off',
+                'lights31': 'off', 'lights32': 'off', 'lights33': 'off', 'lights34': 'off', 'lights35': 'on'}
+
 rooms_lights_mapping = {x.replace("lights", "r"): x for x in actions_dict.keys()}  # Used to map rooms to lights
 lights_rooms_mapping = {x: x.replace("lights", "r") for x in actions_dict.keys()}  # Used to map rooms to lights
 
@@ -261,9 +271,7 @@ rooms = list(rooms_lights_mapping.keys())  # Used to iterate
 lights = list(rooms_lights_mapping.values())  # Used to set lights on initially
 robots = ["robot1", "robot2"]  # Used to iterate
 
-outcome_space_lights = ['on', 'off']
-outcome_space_sensors = ['motion', 'no motion']
-
+# Network structure
 networks = {
     "unreliable_sensor3": ["r1"],
     "unreliable_sensor2": ["r6"],
@@ -299,16 +307,17 @@ room_to_network_map = transposeGraph(networks)
 
 all_rooms = [f"r{x + 1}" for x in range(35)]
 
-training_data_path = Path(__file__).parent.parent / "spec" / "data.csv"
-cols_to_drop = ["robot1", "robot2", "time", "electricity_price"]
-
+# Load training data
+training_data_path = Path(__file__).parent / "data.csv"
 train_df = load_data(training_data_path)
 
+# Binarise the training data
+cols_to_drop = ["robot1", "robot2", "time", "electricity_price"]
 binary_train = binarise(train_df, drop=cols_to_drop)
 
+# Learn outcome space
 outcome_space = learn_outcome_space(binary_train)
 
-prob_tables = {}
 
 res_path = Path(__file__).parent.parent / "results" / "results.txt"
 if res_path.exists():
@@ -318,12 +327,12 @@ else:
     res_path.parent.mkdir(parents=True, exist_ok=True)
 
 smoothing = True
-
+prob_tables = learn_bayes_net(networks, binary_train, outcome_space, add_smooth=smoothing, alpha=1)
 
 with open(res_path, "w+") as res:
     result_string = ""
 
-    prob_tables = learn_bayes_net(networks, binary_train, outcome_space, add_smooth=smoothing, alpha=1)
+
     for room in all_rooms:
         if room not in room_to_network_map:
             continue
@@ -334,6 +343,8 @@ with open(res_path, "w+") as res:
         result_string += "\n\n"
 
     res.write(result_string)
+
+    # Importing json just so I can print out the network to file as a dictionary.
     import json
 
     res.write(f"{'=' * 50}\n\n Network architecture\n\n")
@@ -345,13 +356,7 @@ toggle_light = {
 }
 
 
-def binarise_dict(sensor_data, ):
-    binarised_data = sensor_data
-    for sensor, reading in binarised_data.items():
-        if str(reading).isdigit():
-            binarised_data[sensor] = reading > 0
 
-    return binarised_data
 
 
 actions = {k: "on" for k in lights}
