@@ -15,16 +15,9 @@ from collections import OrderedDict as odict
 from itertools import product
 from pathlib import Path
 
-# Allowed libraries
+# Allowed libraries - Removed redundant
 import numpy as np
 import pandas as pd
-
-###################################
-# Code stub
-#
-# The only requirement of this file is that is must contain a function called get_action,
-# and that function must take sensor_data as an argument, and return an actions_dict
-#
 
 
 
@@ -318,51 +311,25 @@ binary_train = binarise(train_df, drop=cols_to_drop)
 # Learn outcome space
 outcome_space = learn_outcome_space(binary_train)
 
-
-res_path = Path(__file__).parent.parent / "results" / "results.txt"
-if res_path.exists():
-    new_fname = f"{res_path.stem}_{int(datetime.datetime.now().timestamp())}.txt"
-    res_path = res_path.parent / new_fname
-else:
-    res_path.parent.mkdir(parents=True, exist_ok=True)
-
+# Learn the bayes net
 smoothing = True
 prob_tables = learn_bayes_net(networks, binary_train, outcome_space, add_smooth=smoothing, alpha=1)
 
-with open(res_path, "w+") as res:
-    result_string = ""
 
 
-    for room in all_rooms:
-        if room not in room_to_network_map:
-            continue
-        # acc, std = cv_bayes_net(networks, binary_train, room, k=10, add_smooth=smoothing, alpha=1)
-        acc = assess_bayes_net(networks, prob_tables, binary_train, outcome_space, room, smoothing=smoothing)
-        result_string += f"Room {room} accuracy: {round(acc * 100, 3)}\n\t Using "
-        result_string += ", ".join([f"{x}" for x in room_to_network_map[room]])
-        result_string += "\n\n"
 
-    res.write(result_string)
 
-    # Importing json just so I can print out the network to file as a dictionary.
-    import json
 
-    res.write(f"{'=' * 50}\n\n Network architecture\n\n")
-    json.dump(networks, res, indent=4)
+
+# Initially set all lights on just to be safe
+actions = {k: "on" for k in lights}
+
+rs3_switch = True
 
 toggle_light = {
     0: "off",
     1: "on",
 }
-
-
-
-
-
-actions = {k: "on" for k in lights}
-
-rs3_switch = True
-
 
 def get_action(sensor_data):
     # declare state as a global variable so it can be read and modified within this function
@@ -372,35 +339,46 @@ def get_action(sensor_data):
     # First, assumed everything is off. Then toggle lights off.
     actions = {k: "on" for k in lights}
 
+    # At the end of the day, we can turn off all the lights
     if sensor_data["time"] == datetime.time(18, 0, 0):
         rs3_switch = True
 
+    # If no one has entered the building, and there remains no motion, then lets keep the lights off
     if (sensor_data["reliable_sensor3"] == "no motion") and rs3_switch:
         rs3_switch = False
         actions = {k: "off" for k in lights}
         actions["lights12"] = "on"  # leave the entrance on
         actions["lights22"] = "on"  # leave the entrance on
 
+    # The BN needs data in the same outcome space as what it was trained on.
     binarised_sensor_data = binarise_dict(sensor_data, )
 
+    # Need to do checks for bung sensors
     dud_sensors = [s for s in sensor_data if sensor_data[s] is None and s in networks]
 
+    # Disabling inference on rooms that have dud sensors
     disabled_rooms = [x for dud in dud_sensors for x in networks[dud]]
 
     for room in all_rooms:
+        # If the room isnt in the network, or is disabled, go to next
         if (room not in room_to_network_map) or (room in disabled_rooms):
             continue
+
+        #Check if any duds in the room's sub network and adjust
         query_duds = [x for x in room_to_network_map[room] if x in dud_sensors]
         if ~any(query_duds):
             query = [binarised_sensor_data[x] for x in room_to_network_map[room]]
         else:
             query = [binarised_sensor_data[x] for x in room_to_network_map[room] if x not in dud_sensors]
+
+        # Perform MPE
         combs = [(*query, y) for y in [True, False]]
         candidate = np.argmax([prob_tables[room]["table"][x] for x in combs])
 
         actions[rooms_lights_mapping[room]] = toggle_light[combs[candidate][-1]]
 
-    # Robots handled
+    # Robots are assumed to be 100% accurate when not failed. Hence, any room without people counts needs to be
+    # toggled off.
     for robot in robots:
         room_state = sensor_data[robot]
         if room_state:
