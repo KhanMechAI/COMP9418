@@ -21,7 +21,7 @@ import pandas as pd
 
 
 
-# Assignment 1 Code re-used
+# Assignment 1 Code re-used. Reference = Me + Tutorial code from assignment 1.
 
 def learn_outcome_space(data: pd.DataFrame) -> dict:
     return {var: tuple(data[var].unique()) for var in data.columns.values}
