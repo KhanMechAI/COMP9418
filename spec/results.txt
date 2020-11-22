@@ -1,0 +1,239 @@
+Total cost for the day: 83898.8289949826 cents
+Time taken: 193.855644s
+
+Total cost for the day: 57013.05325376941 cents
+Time taken: 194.935283s
+
+Total cost for the day: 99887.40323833334 cents
+Time taken: 193.444398s
+
+Total cost for the day: 70826.45909840924 cents
+Time taken: 197.248318s
+
+Total cost for the day: 69509.65975954795 cents
+Time taken: 191.472587s
+
+Total cost for the day: 74918.75573139933 cents
+Time taken: 194.048143s
+
+Total cost for the day: 103072.40666941673 cents
+Time taken: 195.591964s
+
+Total cost for the day: 77665.78444619554 cents
+Time taken: 199.5158s
+
+Total cost for the day: 80357.97515437003 cents
+Time taken: 191.054037s
+
+Total cost for the day: 81806.86271403622 cents
+Time taken: 343.106182s
+
+Total cost for the day: 65624.21731823903 cents
+Time taken: 16.630588s
+
+Total cost for the day: 94778.35689597453 cents
+Time taken: 14.643483s
+
+Total cost for the day: 42419.692370056226 cents
+Time taken: 14.609978s
+
+Total cost for the day: 87537.22526886345 cents
+Time taken: 1.404492s
+
+Total cost for the day: 55397.95549237925 cents
+Time taken: 6.303834s
+
+Total cost for the day: 75277.4860889083 cents
+Time taken: 6.278961s
+
+Total cost for the day: 77477.59425674414 cents
+Time taken: 1.438589s
+
+Total cost for the day: 52415.41746367743 cents
+Time taken: 1.435991s
+
+Total cost for the day: 59291.234883937344 cents
+Time taken: 1.420991s
+
+Total cost for the day: 85194.57553171334 cents
+Time taken: 1.421991s
+
+Total cost for the day: 62772.70650137463 cents
+Time taken: 1.442993s
+
+Total cost for the day: 78243.2544438908 cents
+Time taken: 1.607547s
+
+Total cost for the day: 134652.1477950322 cents
+Time taken: 1.456317s
+
+Total cost for the day: 83600.82679177899 cents
+Time taken: 1.54405s
+
+Total cost for the day: 167664.95654609846 cents
+Time taken: 1.427991s
+
+Total cost for the day: 73882.5725032742 cents
+Time taken: 6.219775s
+
+Total cost for the day: 102575.91921859421 cents
+Time taken: 6.310958s
+
+Total cost for the day: 70277.09881607433 cents
+Time taken: 6.425402s
+
+Total cost for the day: 94005.70965598382 cents
+Time taken: 1.426343s
+
+Total cost for the day: 112834.44565043942 cents
+Time taken: 1.47099s
+
+Total cost for the day: 110211.21820967064 cents
+Time taken: 1.455018s
+
+Total cost for the day: 106226.75303178545 cents
+Time taken: 1.48199s
+
+Total cost for the day: 170091.8179892888 cents
+Time taken: 1.42999s
+
+Total cost for the day: 128353.87010825051 cents
+Time taken: 1.42599s
+
+Total cost for the day: 74286.59788317014 cents
+Time taken: 1.484989s
+
+Total cost for the day: 102949.18510815807 cents
+Time taken: 1.413991s
+
+Total cost for the day: 132551.47709635366 cents
+Time taken: 1.427992s
+
+Total cost for the day: 105602.69920010952 cents
+Time taken: 1.759524s
+
+Total cost for the day: 114356.66715740455 cents
+Time taken: 6.5837s
+
+Total cost for the day: 45382.513894002084 cents
+Time taken: 1.466039s
+
+Total cost for the day: 130241.69736470694 cents
+Time taken: 1.479991s
+
+Total cost for the day: 44116.531619054535 cents
+Time taken: 149.276094s
+
+Total cost for the day: 82419.26781353755 cents
+Time taken: 1.563991s
+
+Day 1Total cost for the day: 52002.36437924575 cents
+Time taken: 1.489992s
+
+Day 2Total cost for the day: 151851.04539842784 cents
+Time taken: 1.482993s
+
+Day 3Total cost for the day: 67019.87965245917 cents
+Time taken: 1.485992s
+
+Day 4Total cost for the day: 53403.75560855371 cents
+Time taken: 1.50899s
+
+Day 5Total cost for the day: 62835.962774773936 cents
+Time taken: 1.482993s
+
+Day 6Total cost for the day: 36933.6833761219 cents
+Time taken: 1.494991s
+
+Day 7Total cost for the day: 91498.46592599063 cents
+Time taken: 1.507467s
+
+Day 8Total cost for the day: 55430.31882901979 cents
+Time taken: 1.493992s
+
+Day 9Total cost for the day: 77800.19101708767 cents
+Time taken: 1.53722s
+
+Day 10Total cost for the day: 66159.26018179608 cents
+Time taken: 1.767107s
+
+Day 1
+Total cost for the day: 88077.08054698636 cents
+Time taken: 1.488131s
+
+Day 2
+Total cost for the day: 92691.22320342773 cents
+Time taken: 1.536995s
+
+Day 3
+Total cost for the day: 105921.6866751862 cents
+Time taken: 1.539793s
+
+Day 4
+Total cost for the day: 60252.04390609923 cents
+Time taken: 1.55299s
+
+Day 5
+Total cost for the day: 103300.87726375276 cents
+Time taken: 1.521991s
+
+Day 6
+Total cost for the day: 72785.37133481124 cents
+Time taken: 1.514554s
+
+Day 7
+Total cost for the day: 102388.60579422132 cents
+Time taken: 1.522988s
+
+Day 8
+Total cost for the day: 39365.24068178812 cents
+Time taken: 1.497992s
+
+Day 9
+Total cost for the day: 67279.87702765198 cents
+Time taken: 1.493429s
+
+Day 10
+Total cost for the day: 67930.97594816516 cents
+Time taken: 1.489992s
+
+Day 1
+Total cost for the day: 71703.7261506201 cents
+Time taken: 1.567056s
+
+Day 2
+Total cost for the day: 104874.49321756844 cents
+Time taken: 1.517099s
+
+Day 3
+Total cost for the day: 41145.921106825444 cents
+Time taken: 1.512088s
+
+Day 4
+Total cost for the day: 82404.8839430245 cents
+Time taken: 1.505332s
+
+Day 5
+Total cost for the day: 63104.39138256755 cents
+Time taken: 1.500089s
+
+Day 6
+Total cost for the day: 64771.66525981026 cents
+Time taken: 1.529088s
+
+Day 7
+Total cost for the day: 125429.2447289688 cents
+Time taken: 1.536787s
+
+Day 8
+Total cost for the day: 39924.395533446856 cents
+Time taken: 1.504263s
+
+Day 9
+Total cost for the day: 80249.51549023236 cents
+Time taken: 1.505301s
+
+Day 10
+Total cost for the day: 100948.74212373611 cents
+Time taken: 1.554974s
+

@@ -1,0 +1,85 @@
+Room r1 accuracy: 91.17
+	 Using unreliable_sensor3
+
+Room r5 accuracy: 96.252
+	 Using reliable_sensor2
+
+Room r8 accuracy: 93.544
+	 Using door_sensor1
+
+Room r9 accuracy: 72.72
+	 Using door_sensor1
+
+Room r16 accuracy: 97.876
+	 Using reliable_sensor1
+
+Room r24 accuracy: 95.044
+	 Using unreliable_sensor4
+
+Room r25 accuracy: 96.293
+	 Using reliable_sensor3
+
+Room r26 accuracy: 86.922
+	 Using door_sensor3
+
+Room r27 accuracy: 71.512
+	 Using door_sensor3
+
+Room r31 accuracy: 97.168
+	 Using reliable_sensor4
+
+Room r32 accuracy: 83.757
+	 Using reliable_sensor4, door_sensor3
+
+Room r35 accuracy: 82.965
+	 Using door_sensor4
+
+==================================================
+
+ Network architecture
+
+{
+    "unreliable_sensor3": [
+        "r1"
+    ],
+    "r1": [],
+    "unreliable_sensor4": [
+        "r24"
+    ],
+    "r24": [],
+    "reliable_sensor1": [
+        "r16"
+    ],
+    "r16": [],
+    "reliable_sensor2": [
+        "r5"
+    ],
+    "r5": [],
+    "reliable_sensor3": [
+        "r25"
+    ],
+    "reliable_sensor4": [
+        "r31",
+        "r32"
+    ],
+    "r25": [],
+    "r31": [],
+    "r32": [],
+    "door_sensor1": [
+        "r8",
+        "r9"
+    ],
+    "r8": [],
+    "r9": [],
+    "door_sensor3": [
+        "r26",
+        "r27",
+        "r32"
+    ],
+    "r26": [],
+    "r27": [],
+    "door_sensor4": [
+        "r35"
+    ],
+    "r35": []
+}
